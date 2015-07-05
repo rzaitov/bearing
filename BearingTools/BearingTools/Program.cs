@@ -29,6 +29,10 @@ namespace SchemaGenerator
 				else
 					Console.WriteLine ("{0}\t{1}\t{2}", kvp.Key, files.Count, string.Join(",", files));
 			}
+
+			var cMap = new ColumnMap ();
+			var columnsMetaGenerator = new ColumnsMetaGenerator ();
+			Console.WriteLine (columnsMetaGenerator.Generage (cMap));
 		}
 	}
 }

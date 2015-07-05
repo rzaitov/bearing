@@ -8,11 +8,11 @@ namespace SchemaGenerator
 		const string Text = "TEXT";
 		const string Float = "FLOAT";
 
-		readonly Dictionary<string, ColumnInfo> map;
+		public Dictionary<string, ColumnInfo> Map { get; private set; }
 
 		public ColumnMap ()
 		{
-			map = new Dictionary<string, ColumnInfo> {
+			Map = new Dictionary<string, ColumnInfo> {
 				{ "Артикул", new ColumnInfo { Name = "article", Type = Text, Description = null } },
 				{ "Артикул подкладного кольца", new ColumnInfo { Name = "article_backing_ring", Type = Text, Description = null } },
 				{ "Артикул стопорного кольцоа", new ColumnInfo { Name = "article_locking_wheel", Type = Text, Description = null } },

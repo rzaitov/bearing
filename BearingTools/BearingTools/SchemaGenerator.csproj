@@ -59,6 +59,7 @@
     <Compile Include="ColumnMap.cs" />
     <Compile Include="ColumnInfo.cs" />
     <Compile Include="Dictionary\DictionaryItem.cs" />
+    <Compile Include="Generator\ColumnsMetaGenerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -69,5 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dictionary\" />
+    <Folder Include="Generator\" />
   </ItemGroup>
 </Project>
