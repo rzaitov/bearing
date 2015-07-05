@@ -1,0 +1,13 @@
+CREATE TABLE `meta` (
+	`id` INTEGER PRIMARY KEY,
+	`title` TEXT NOT NULL,
+	`description` TEXT NOT NULL
+);
+
+CREATE TABLE `meta_columns` (
+	`id` INTEGER PRIMARY KEY AUTOINCREMENT,
+	`table_id` INTEGER NOT NULL,
+	`name` TEXT NOT NULL,
+	`header` TEXT NOT NULL,
+	`description` TEXT
+);

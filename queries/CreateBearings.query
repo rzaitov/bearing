@@ -1,0 +1,32 @@
+﻿/* Шариковые упорные однорядные подшипники SKF */
+CREATE TABLE IF NOT EXISTS `bearing1` (
+	`id` INTEGER PRIMARY KEY AUTOINCREMENT,
+	`article` TEXT,
+	`d1` FLOAT,
+	`d2` FLOAT,
+	`H` FLOAT,
+	`C` FLOAT,
+	`C0` FLOAT,
+	`PU` FLOAT,
+	`A` FLOAT,
+	`V_nom` FLOAT,
+	`V_max` FLOAT,
+	`weight` FLOAT
+);
+
+INSERT INTO `meta` (`id`, `title`, `description`)
+VALUES (1, "bearing1", "Шариковые упорные однорядные подшипники SKF");
+
+INSERT INTO `meta_columns` (`table_id`, `name`, `header`, `description`)
+VALUES
+(1, "article", "Артикул", NULL),
+(1, "d1", "d мм", NULL),
+(1, "d2", "D мм", NULL),
+(1, "H", "H мм", NULL),
+(1, "C", "C kN", NULL),
+(1, "C0", "C0", NULL),
+(1, "PU", "Pu kN", NULL),
+(1, "A", "A", NULL),
+(1, "V_nom", "V nom об/мин", NULL),
+(1, "V_max", "V max об/мин", NULL),
+(1, "weight", "кг", NULL);
