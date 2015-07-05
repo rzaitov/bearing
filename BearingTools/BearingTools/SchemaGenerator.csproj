@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{81FA1DDB-A442-4EA0-94AF-9D848D09EBFB}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>BearingTools</RootNamespace>
+    <RootNamespace>SchemaGenerator</RootNamespace>
     <AssemblyName>BearingTools</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -54,6 +54,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableReader.cs" />
+    <Compile Include="Dictionary\DictionaryReader.cs" />
+    <Compile Include="Dictionary\DictionaryValidationReport.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -61,5 +63,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dictionary\" />
   </ItemGroup>
 </Project>

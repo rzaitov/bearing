@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SchemaGenerator
+{
+	public class DictionaryValidationReport
+	{
+		public List<string> Founded { get; private set; }
+		public List<string> NotFound { get; private set; }
+		public int Count { get; set; }
+
+		public DictionaryValidationReport ()
+		{
+			Founded = new List<string> ();
+			NotFound = new List<string> ();
+		}
+
+		public void Print ()
+		{
+			Console.WriteLine (ToString());
+		}
+
+		public override string ToString ()
+		{
+			var sb = new StringBuilder ();
+			sb.AppendLine ("Not founded:");
+
+			int i = 0;
+			foreach (var p in NotFound)
+				sb.AppendFormat ("{0} {1}", ++i, p).AppendLine ();
+
+
+			sb.AppendFormat ("Scanned rows: {0}. Found {1} files", Count, Founded.Count);
+
+			return sb.ToString ();
+		}
+	}
+}
+
