@@ -30,3 +30,39 @@ VALUES
 (1, "V_nom", "V nom об/мин", NULL),
 (1, "V_max", "V max об/мин", NULL),
 (1, "weight", "кг", NULL);
+
+
+/* Шариковые упорные однорядные подшипники SKF со сферическим свободным кольцом */
+CREATE TABLE IF NOT EXISTS `bearing2` (
+	`id` INTEGER PRIMARY KEY AUTOINCREMENT,
+	`article` TEXT,
+	`d1` FLOAT,
+	`d2` FLOAT,
+	`H` FLOAT,
+	`C` FLOAT,
+	`C0` FLOAT,
+	`PU` FLOAT,
+	`A` FLOAT,
+	`V_nom` FLOAT,
+	`V_max` FLOAT,
+	`weight` FLOAT,
+	`circle_article` TEXT
+);
+
+INSERT INTO `meta` (`id`, `title`, `description`)
+VALUES (2, "bearing2", "Шариковые упорные однорядные подшипники SKF со сферическим свободным кольцом");
+
+INSERT INTO `meta_columns` (`table_id`, `name`, `header`, `description`)
+VALUES
+(2, "article", "Артикул", NULL),
+(2, "d1", "d мм", NULL),
+(2, "d2", "D мм", NULL),
+(2, "H", "H мм", NULL),
+(2, "C", "C kN", NULL),
+(2, "C0", "C0", NULL),
+(2, "PU", "Pu kN", NULL),
+(2, "A", "A", NULL),
+(2, "V_nom", "V nom об/мин", NULL),
+(2, "V_max", "V max об/мин", NULL),
+(2, "weight", "кг (подшипник + кольцо)", NULL),
+(2, "circle_article", "Артикул подкладного кольца", NULL);
