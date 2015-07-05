@@ -16,8 +16,19 @@ namespace SchemaGenerator
 			DictionaryValidationReport validationReport = dictReader.Validate ();
 			validationReport.Print ();
 
-//			var tr = new TableReader ();
-//			tr.Read ("/skf/Подшипники/Шариковые/Шариковые Упорные/Упорные шарикоподшипники, одинарные.xls");
+			var tr = new TableReader ();
+			foreach (var p in validationReport.Founded) {
+				string fullPath = Path.Combine (storagePath, p);
+				tr.Read (fullPath);
+			}
+
+			foreach (var kvp in tr.Headers) {
+				var files = kvp.Value;
+				if (files.Count >= 3)
+					Console.WriteLine ("{0}\t{1}", kvp.Key, files.Count);
+				else
+					Console.WriteLine ("{0}\t{1}\t{2}", kvp.Key, files.Count, string.Join(",", files));
+			}
 		}
 	}
 }

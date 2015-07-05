@@ -8,7 +8,6 @@ namespace SchemaGenerator
 	{
 		public List<string> Founded { get; private set; }
 		public List<string> NotFound { get; private set; }
-		public int Count { get; set; }
 
 		public DictionaryValidationReport ()
 		{
@@ -31,7 +30,7 @@ namespace SchemaGenerator
 				sb.AppendFormat ("{0} {1}", ++i, p).AppendLine ();
 
 
-			sb.AppendFormat ("Scanned rows: {0}. Found {1} files", Count, Founded.Count);
+			sb.AppendFormat ("Found {0} files", Founded.Count);
 
 			return sb.ToString ();
 		}

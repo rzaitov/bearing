@@ -7,23 +7,17 @@ namespace SchemaGenerator
 {
 	public class TableReader
 	{
-		readonly List<string> files;
-		readonly List<string> notFound;
-		readonly HashSet<string> headers;
+		public Dictionary<string, List<string>> Headers { get; private set; }
 
 		public TableReader ()
 		{
-			files = new List<string> ();
-			notFound = new List<string> ();
-			headers = new HashSet<string> ();
+			Headers = new Dictionary<string, List<string>> ();
 		}
 
 		public void Read (string path)
 		{
-			if (!File.Exists (path)) {
-				notFound.Add (path);
-				return;
-			}
+			if (!File.Exists (path))
+				throw new FileNotFoundException ();
 
 			IWorkbook wb = WorkbookFactory.Create (path);
 			ISheet sheet = wb.GetSheetAt (0);
@@ -35,11 +29,12 @@ namespace SchemaGenerator
 				if (cell == null)
 					break;
 
-				headers.Add (cell.StringCellValue);
-			}
-
-			foreach (var h in headers) {
-				Console.WriteLine (h);
+				List<string> files;
+				var header = cell.StringCellValue;
+				if (Headers.TryGetValue (header, out files))
+					files.Add (path);
+				else
+					Headers [header] = new List<string> { path };
 			}
 		}
 	}

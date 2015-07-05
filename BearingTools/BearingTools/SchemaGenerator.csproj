@@ -56,6 +56,9 @@
     <Compile Include="TableReader.cs" />
     <Compile Include="Dictionary\DictionaryReader.cs" />
     <Compile Include="Dictionary\DictionaryValidationReport.cs" />
+    <Compile Include="ColumnMap.cs" />
+    <Compile Include="ColumnInfo.cs" />
+    <Compile Include="Dictionary\DictionaryItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
