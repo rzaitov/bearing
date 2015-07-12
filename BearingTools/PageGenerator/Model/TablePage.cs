@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PageGenerator
+namespace PageGenerator.Model
 {
-	public class TablePage
-	{
-        public List<string> TableHeaders { get; set; }
-        public List<string> Values { get; set; }
-
-		public TablePage ()
-		{
-            TableHeaders = new List<string>();
-            Values = new List<string>();
-		}
-	}
+    class TablePage
+    {
+        public List<string> Headers { get; set; }
+        public List<List<string>> Data { get; set; }
+    }
 }
-

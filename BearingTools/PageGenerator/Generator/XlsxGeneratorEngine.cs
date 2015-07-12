@@ -10,19 +10,24 @@ namespace PageGenerator
 {
     class XlsxGeneratorEngine
     {
-        public void HandleTable(string tablePath, string tableTemplatePath)
+        public void HandleTable(string tablePath, string tableTemplatePath, string finishPageTemplatePath)
         {
-            if (!File.Exists(tableTemplatePath))
-                throw new FileNotFoundException();
-
             IWorkbook wb = WorkbookFactory.Create(tablePath);
             ISheet sheet = wb.GetSheetAt(0);
 
-            var tg = new XlsxTableGenerator(tablePath);
-            string tableTemplate = File.ReadAllText(tableTemplatePath);
+            string finishTemplate = File.ReadAllText(finishPageTemplatePath);
+            var pathResolver = new FinishPageNameResolver("Output");
 
-            string page = tg.Generate(tableTemplate);
-            File.WriteAllText("out.html", page, Encoding.Unicode);
+            Directory.CreateDirectory("Output");
+
+            XlsxFinishPageGenerator fg = new XlsxFinishPageGenerator(sheet);
+            fg.Generate(finishTemplate, pathResolver);
+
+            //var tg = new XlsxTableGenerator(tablePath);
+            //string tableTemplate = File.ReadAllText(tableTemplatePath);
+
+            //string page = tg.Generate(tableTemplate);
+            //File.WriteAllText("out.html", page, Encoding.Unicode);
         }
     }
 }
