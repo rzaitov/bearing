@@ -11,7 +11,6 @@ namespace PageGenerator
 		const string template = @"Hello @Model.Name, welcome to RazorEngine!";
 		public TableGenerator ()
 		{
-			var t = typeof (CSharpCodeParser);
 		}
 
 		public string Generate ()
