@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaGenerator", "BearingTools\SchemaGenerator.csproj", "{81FA1DDB-A442-4EA0-94AF-9D848D09EBFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageGenerator", "PageGenerator\PageGenerator.csproj", "{B9F65406-863B-4134-92BA-D55DC82D9619}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,5 +15,9 @@ Global
 		{81FA1DDB-A442-4EA0-94AF-9D848D09EBFB}.Debug|x86.Build.0 = Debug|x86
 		{81FA1DDB-A442-4EA0-94AF-9D848D09EBFB}.Release|x86.ActiveCfg = Release|x86
 		{81FA1DDB-A442-4EA0-94AF-9D848D09EBFB}.Release|x86.Build.0 = Release|x86
+		{B9F65406-863B-4134-92BA-D55DC82D9619}.Debug|x86.ActiveCfg = Debug|x86
+		{B9F65406-863B-4134-92BA-D55DC82D9619}.Debug|x86.Build.0 = Debug|x86
+		{B9F65406-863B-4134-92BA-D55DC82D9619}.Release|x86.ActiveCfg = Release|x86
+		{B9F65406-863B-4134-92BA-D55DC82D9619}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal

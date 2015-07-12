@@ -14,6 +14,7 @@ namespace SchemaGenerator
 			public int Img { get; set; }
 		}
 
+		readonly string path;
 		readonly ISheet sheet;
 		readonly string storagePath;
 
@@ -24,6 +25,8 @@ namespace SchemaGenerator
 
 			if (!Directory.Exists (storagePath))
 				throw new DirectoryNotFoundException ();
+
+			this.path = path;
 
 			IWorkbook wb = WorkbookFactory.Create (path);
 			sheet = wb.GetSheet("URL");
@@ -117,7 +120,12 @@ namespace SchemaGenerator
 			if (cell == null)
 				return null;
 
-			return cell.StringCellValue;
+			if(cell.CellType == CellType.String)
+				return cell.StringCellValue;
+			else
+				Console.WriteLine ("Got numeric value when string expected. row={0}, column={1}, value={2}, path={3}", cell.RowIndex, cell.ColumnIndex, cell.NumericCellValue, path);
+
+			return null;
 		}
 	}
 }

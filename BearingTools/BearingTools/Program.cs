@@ -12,7 +12,7 @@ namespace SchemaGenerator
 		const string storagePath = "/Users/rzaitov/Documents/Apps/_Bearing";
 		public static void Main (string[] args)
 		{
-			DictionaryReader dictReader = new DictionaryReader ("Dictionary.xls", storagePath);
+			DictionaryReader dictReader = new DictionaryReader ("Dictionary.xlsx", storagePath);
 			DictionaryValidationReport validationReport = dictReader.Validate ();
 			validationReport.Print ();
 

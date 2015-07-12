@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{81FA1DDB-A442-4EA0-94AF-9D848D09EBFB}</ProjectGuid>
+    <ProjectGuid>{B9F65406-863B-4134-92BA-D55DC82D9619}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>SchemaGenerator</RootNamespace>
-    <AssemblyName>BearingTools</AssemblyName>
+    <RootNamespace>PageGenerator</RootNamespace>
+    <AssemblyName>PageGenerator</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -31,45 +31,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="ExcelLibrary">
-      <HintPath>..\..\..\..\..\Downloads\ExcelLibrary.dll</HintPath>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.AspNet.Razor">
+      <HintPath>..\..\Libs\Microsoft.AspNet.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="RazorEngine">
+      <HintPath>..\..\Libs\RazorEngine.dll</HintPath>
     </Reference>
-    <Reference Include="NPOI">
-      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.dll</HintPath>
-    </Reference>
-    <Reference Include="NPOI.OOXML">
-      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OOXML.dll</HintPath>
-    </Reference>
-    <Reference Include="NPOI.OpenXml4Net">
-      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
-    </Reference>
-    <Reference Include="NPOI.OpenXmlFormats">
-      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\..\Libs\System.Web.Razor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TableReader.cs" />
-    <Compile Include="Dictionary\DictionaryReader.cs" />
-    <Compile Include="Dictionary\DictionaryValidationReport.cs" />
-    <Compile Include="ColumnMap.cs" />
-    <Compile Include="ColumnInfo.cs" />
-    <Compile Include="Dictionary\DictionaryItem.cs" />
-    <Compile Include="Generator\ColumnsMetaGenerator.cs" />
+    <Compile Include="Generator\TableGenerator.cs" />
+    <Compile Include="Model\TablePage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="Dictionary.xlsx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dictionary\" />
     <Folder Include="Generator\" />
+    <Folder Include="Model\" />
   </ItemGroup>
 </Project>
