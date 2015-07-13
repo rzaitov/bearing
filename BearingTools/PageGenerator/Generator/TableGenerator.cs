@@ -12,29 +12,23 @@ namespace PageGenerator
 {
     public class XlsxTableGenerator : ITableGenerator
 	{
-        readonly string path;
         readonly ISheet sheet;
 
-        public XlsxTableGenerator (string path)
+        public XlsxTableGenerator(ISheet sheet)
 		{
-            if (string.IsNullOrWhiteSpace(path))
-                throw new ArgumentException();
-
-
-            if (!File.Exists(path))
-                throw new FileNotFoundException();
-
-            IWorkbook wb = WorkbookFactory.Create(path);
-            sheet = wb.GetSheetAt(0);
+            this.sheet = sheet;
 		}
 
-		public string Generate (string template)
+		public void Generate (string template, FinishPageNameResolver resolver, string outputPath)
 		{
             var hReader = new HeaderReader();
             List<string> headers = hReader.FetchHeaders(0, sheet);
 
             var model = new TablePage();
-            model.TableHeaders.AddRange(headers);
+            model.Headers.AddRange(headers);
+
+            if (!Engine.Razor.IsTemplateCached("tablePageKey", typeof(TablePage)))
+                Engine.Razor.Compile(template, "tablePageKey", typeof(TablePage));
 
             int rowIndex = 0;
             while (true)
@@ -43,24 +37,18 @@ namespace PageGenerator
                 if (row == null)
                     break;
 
+                var rData = new RowData();
                 for (int i = 0; i < headers.Count; i++)
                 {
                     var cell = row.GetCell(i);
-                    model.Values.Add(cell.ToString());
+                    rData.Values.Add(cell.ToString());
                 }
-
-                //Path = FetchPath(row.GetCell(columnInfo.Path)),
-                //ImgName = GetStringOrNull(row.GetCell(columnInfo.Img)),
-                //Description = GetStringOrNull(row.GetCell(columnInfo.Description))
-                //items.Add(item);
-
-                break;
+                rData.FinishPageUrl = resolver.GetFileName(rData.Values[0]);
+                model.Rows.Add(rData);
             }
 
-
-
-			string result = Engine.Razor.RunCompile(template, "templateKey", typeof(TablePage), model);
-			return result;
+            string result = Engine.Razor.Run("tablePageKey", typeof(TablePage), model);
+            File.WriteAllText(outputPath, result, System.Text.Encoding.Unicode);
 		}
     }
 }

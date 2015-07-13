@@ -8,6 +8,6 @@ namespace PageGenerator
 {
     interface ITableGenerator
     {
-        string Generate(string template);
+        void Generate(string template, FinishPageNameResolver resolver, string outputPath);
     }
 }

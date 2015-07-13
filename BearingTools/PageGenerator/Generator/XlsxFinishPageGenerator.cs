@@ -30,8 +30,10 @@ namespace PageGenerator
             var model = new FinishPage();
             model.Headers.AddRange(headers);
 
+            if(!Engine.Razor.IsTemplateCached("finishPageKey", typeof(FinishPage)))
+                Engine.Razor.Compile(template, "finishPageKey", typeof(FinishPage));
+
             int rowIndex = 0;
-            Engine.Razor.Compile(template, "finishPageKey", typeof(FinishPage));
             while (true)
             {
                 var row = sheet.GetRow(++rowIndex);

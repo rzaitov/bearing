@@ -12,22 +12,21 @@ namespace PageGenerator
     {
         public void HandleTable(string tablePath, string tableTemplatePath, string finishPageTemplatePath)
         {
+            string outputDir = "Output";
             IWorkbook wb = WorkbookFactory.Create(tablePath);
             ISheet sheet = wb.GetSheetAt(0);
 
             string finishTemplate = File.ReadAllText(finishPageTemplatePath);
-            var pathResolver = new FinishPageNameResolver("Output");
+            string tableTemplate = File.ReadAllText(tableTemplatePath);
+            var pathResolver = new FinishPageNameResolver(outputDir);
 
-            Directory.CreateDirectory("Output");
+            Directory.CreateDirectory(outputDir);
 
             XlsxFinishPageGenerator fg = new XlsxFinishPageGenerator(sheet);
             fg.Generate(finishTemplate, pathResolver);
 
-            //var tg = new XlsxTableGenerator(tablePath);
-            //string tableTemplate = File.ReadAllText(tableTemplatePath);
-
-            //string page = tg.Generate(tableTemplate);
-            //File.WriteAllText("out.html", page, Encoding.Unicode);
+            XlsxTableGenerator tg = new XlsxTableGenerator(sheet);
+            tg.Generate(tableTemplate, pathResolver, Path.Combine(outputDir, "aaa.html"));
         }
     }
 }

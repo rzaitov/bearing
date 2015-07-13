@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PageGenerator
 {
-    class FinishPageNameResolver
+    public class FinishPageNameResolver
     {
         readonly string directory;
 
@@ -16,7 +16,7 @@ namespace PageGenerator
             directory = dir;
         }
 
-        public string GetFilePath(string article)
+        public string GetFileName(string article)
         {
             article = article.Trim().ToLower();
             char[] arr = article.ToArray();
@@ -30,7 +30,12 @@ namespace PageGenerator
 
 
             string fileName = string.Format("podshipnik-{0}.html", new string(arr));
-            string path = Path.Combine(directory, fileName);
+            return fileName;
+        }
+
+        public string GetFilePath(string article)
+        {
+            string path = Path.Combine(directory, GetFileName(article));
             return path;
         }
     }
