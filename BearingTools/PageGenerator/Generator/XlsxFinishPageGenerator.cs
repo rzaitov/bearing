@@ -40,12 +40,22 @@ namespace PageGenerator
                 if (row == null)
                     break;
 
+                bool isRowEmpty = true;
+                bool hasEmptyCell = false;
                 model.Values.Clear();
                 for (int i = 0; i < headers.Count; i++)
                 {
                     var cell = row.GetCell(i);
-                    model.Values.Add(cell.ToString());
+                    string cellValue = cell.ToString();
+                    isRowEmpty &= string.IsNullOrWhiteSpace(cellValue);
+                    hasEmptyCell |= string.IsNullOrWhiteSpace(cellValue);
+                    model.Values.Add(cellValue);
                 }
+
+                if (isRowEmpty)
+                    continue;
+                if (hasEmptyCell)
+                    throw new InvalidOperationException();
 
                 string result = Engine.Razor.Run("finishPageKey", typeof(FinishPage), model);
                 string fileName = resolver.GetFilePath(model.Values[0]);

@@ -59,7 +59,10 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generator\DictionaryItem.cs" />
+    <Compile Include="Generator\DictionaryReader.cs" />
     <Compile Include="Generator\FinishPageNameResolver.cs" />
+    <Compile Include="Generator\GeneratorSettings.cs" />
     <Compile Include="Generator\XlsxFinishPageGenerator.cs" />
     <Compile Include="Generator\XlsxGeneratorEngine.cs" />
     <Compile Include="Generator\ITableGenerator.cs" />

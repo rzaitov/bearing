@@ -10,23 +10,50 @@ namespace PageGenerator
 {
     class XlsxGeneratorEngine
     {
-        public void HandleTable(string tablePath, string tableTemplatePath, string finishPageTemplatePath)
+        readonly string finishTemplate;
+        readonly string tableTemplate;
+
+        readonly GeneratorSettings settings;
+        readonly FinishPageNameResolver pathResolver;
+
+
+        public XlsxGeneratorEngine(GeneratorSettings settings)
         {
-            string outputDir = "Output";
-            IWorkbook wb = WorkbookFactory.Create(tablePath);
-            ISheet sheet = wb.GetSheetAt(0);
+            this.settings = settings;
 
-            string finishTemplate = File.ReadAllText(finishPageTemplatePath);
-            string tableTemplate = File.ReadAllText(tableTemplatePath);
-            var pathResolver = new FinishPageNameResolver(outputDir);
+            finishTemplate = File.ReadAllText(settings.FinishPageTemplatePath);
+            tableTemplate = File.ReadAllText(settings.TableTemplatePath);
+            pathResolver = new FinishPageNameResolver(settings.OutputDir);
+        }
 
-            Directory.CreateDirectory(outputDir);
+        static int i = 1;
+        public void Generate()
+        {
+            Directory.CreateDirectory(settings.OutputDir);
 
+            var reader = new DictionaryReader(settings.DictionaryPath, settings.StoragePath);
+            foreach (var item in reader.Read())
+            {
+                string path = item.Path;
+                if (!File.Exists(path)) {
+                    Console.WriteLine(string.Format("File not found: {0}", path));
+                    continue;
+                }
+
+                IWorkbook wb = WorkbookFactory.Create(path);
+                ISheet sheet = wb.GetSheetAt(0);
+
+                HandleTable(sheet, Path.Combine(settings.OutputDir, string.Format("{0}.html", i++)));
+            }
+        }
+
+        public void HandleTable(ISheet sheet, string tablePageOutputPath)
+        {
             XlsxFinishPageGenerator fg = new XlsxFinishPageGenerator(sheet);
             fg.Generate(finishTemplate, pathResolver);
 
             XlsxTableGenerator tg = new XlsxTableGenerator(sheet);
-            tg.Generate(tableTemplate, pathResolver, Path.Combine(outputDir, "aaa.html"));
+            tg.Generate(tableTemplate, pathResolver, tablePageOutputPath);
         }
     }
 }

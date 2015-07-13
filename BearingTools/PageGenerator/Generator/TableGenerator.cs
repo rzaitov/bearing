@@ -37,12 +37,25 @@ namespace PageGenerator
                 if (row == null)
                     break;
 
+                bool isRowEmpty = true;
+                bool hasEmptyCell = false;
                 var rData = new RowData();
                 for (int i = 0; i < headers.Count; i++)
                 {
                     var cell = row.GetCell(i);
-                    rData.Values.Add(cell.ToString());
+                    string cellValue = cell.ToString();
+
+                    isRowEmpty &= string.IsNullOrWhiteSpace(cellValue);
+                    hasEmptyCell |= string.IsNullOrWhiteSpace(cellValue);
+
+                    rData.Values.Add(cellValue);
                 }
+
+                if (isRowEmpty)
+                    continue;
+                if (hasEmptyCell)
+                    throw new InvalidOperationException();
+
                 rData.FinishPageUrl = resolver.GetFileName(rData.Values[0]);
                 model.Rows.Add(rData);
             }

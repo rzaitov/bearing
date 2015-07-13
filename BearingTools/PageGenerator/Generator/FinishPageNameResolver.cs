@@ -18,6 +18,9 @@ namespace PageGenerator
 
         public string GetFileName(string article)
         {
+            if (string.IsNullOrWhiteSpace(article))
+                throw new ArgumentException();
+            
             article = article.Trim().ToLower();
             char[] arr = article.ToArray();
 

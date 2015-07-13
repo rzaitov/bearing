@@ -10,9 +10,16 @@ namespace PageGenerator
 		
         public static void Main (string[] args)
 		{
-            XlsxGeneratorEngine engine = new XlsxGeneratorEngine();
-            engine.HandleTable(path, tableTemplate, finishTemplate);
-
+            GeneratorSettings settings = new GeneratorSettings
+            {
+                DictionaryPath = "c:\\Users\\Rustam\\Downloads\\Dictionary.xlsx",
+                OutputDir = "Output",
+                StoragePath = "c:\\Users\\Rustam\\Downloads\\",
+                FinishPageTemplatePath = finishTemplate,
+                TableTemplatePath = tableTemplate
+            };
+            var engine = new XlsxGeneratorEngine(settings);
+            engine.Generate();
 		}
 	}
 }
