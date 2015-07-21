@@ -22,7 +22,7 @@ namespace PageGenerator
             this.sheet = sheet;
 		}
 
-        public void Generate(string template, FinishPageNameResolver resolver)
+        public void Generate(FinishPageSettings settings)
         {
             var hReader = new HeaderReader();
             List<string> headers = hReader.FetchHeaders(0, sheet);
@@ -31,7 +31,7 @@ namespace PageGenerator
             model.Headers.AddRange(headers);
 
             if(!Engine.Razor.IsTemplateCached("finishPageKey", typeof(FinishPage)))
-                Engine.Razor.Compile(template, "finishPageKey", typeof(FinishPage));
+                Engine.Razor.Compile(settings.Template, "finishPageKey", typeof(FinishPage));
 
             int rowIndex = 0;
             while (true)
@@ -57,8 +57,12 @@ namespace PageGenerator
                 if (hasEmptyCell)
                     throw new InvalidOperationException();
 
+                double price;
+                if (settings.PriceList.TryGetValue(model.Article, out price))
+                    model.Price = price;
+
                 string result = Engine.Razor.Run("finishPageKey", typeof(FinishPage), model);
-                string fileName = resolver.GetFilePath(model.Values[0]);
+                string fileName = settings.NameResolver.GetFilePath(model.Values[0]);
                 File.WriteAllText(fileName, result, System.Text.Encoding.Unicode);
             }
         }

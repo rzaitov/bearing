@@ -9,6 +9,9 @@ namespace PageGenerator
     class GeneratorSettings
     {
         public string DictionaryPath { get; set; }
+
+        public string PricelistPath { get; set; }
+
         public string StoragePath { get; set; }
 
         public string TableTemplatePath { get; set; }

@@ -13,6 +13,7 @@ namespace PageGenerator
             GeneratorSettings settings = new GeneratorSettings
             {
                 DictionaryPath = "c:\\Users\\Rustam\\Downloads\\Dictionary.xlsx",
+                PricelistPath = "c:\\Users\\Rustam\\Downloads\\Pricelist.xlsx",
                 OutputDir = "Output",
                 StoragePath = "c:\\Users\\Rustam\\Downloads\\",
                 FinishPageTemplatePath = finishTemplate,
