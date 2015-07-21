@@ -8,9 +8,13 @@ namespace PageGenerator
         public List<string> Headers { get; set; }
         public List<string> Values { get; set; }
 
+        string article;
         public string Article {
             get {
-                return Values.Count > 0 ? Values[0].Trim() : string.Empty;
+                if(article == null)
+                    article = Values.Count > 0 ? Values[0].Trim() : string.Empty;
+
+                return article;
             }
         }
 

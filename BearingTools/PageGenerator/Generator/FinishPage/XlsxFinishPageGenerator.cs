@@ -27,8 +27,6 @@ namespace PageGenerator
             var hReader = new HeaderReader();
             List<string> headers = hReader.FetchHeaders(0, sheet);
 
-            var model = new FinishPage();
-            model.Headers.AddRange(headers);
 
             if(!Engine.Razor.IsTemplateCached("finishPageKey", typeof(FinishPage)))
                 Engine.Razor.Compile(settings.Template, "finishPageKey", typeof(FinishPage));
@@ -40,9 +38,11 @@ namespace PageGenerator
                 if (row == null)
                     break;
 
+                var model = new FinishPage();
+                model.Headers.AddRange(headers);
+
                 bool isRowEmpty = true;
                 bool hasEmptyCell = false;
-                model.Values.Clear();
                 for (int i = 0; i < headers.Count; i++)
                 {
                     var cell = row.GetCell(i);
@@ -60,6 +60,8 @@ namespace PageGenerator
                 double price;
                 if (settings.PriceList.TryGetValue(model.Article, out price))
                     model.Price = price;
+                else
+                    settings.MissedPriceStorage.Add(model.Article);
 
                 string result = Engine.Razor.Run("finishPageKey", typeof(FinishPage), model);
                 string fileName = settings.NameResolver.GetFilePath(model.Values[0]);

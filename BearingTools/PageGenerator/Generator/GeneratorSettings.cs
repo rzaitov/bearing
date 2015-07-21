@@ -18,5 +18,7 @@ namespace PageGenerator
         public string FinishPageTemplatePath { get; set; }
 
         public string OutputDir { get; set; }
+
+        public string PricelessLogPath { get; set; }
     }
 }

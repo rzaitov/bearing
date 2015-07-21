@@ -17,6 +17,7 @@ namespace PageGenerator
         readonly FinishPageNameResolver pathResolver;
 
         readonly Dictionary<string, double> pricelist;
+        readonly MissedPriceStorage missedPriceStorage;
 
         public XlsxGeneratorEngine(GeneratorSettings settings)
         {
@@ -29,6 +30,8 @@ namespace PageGenerator
 
             var priceListReader = new PriceListReader();
             pricelist = priceListReader.ReadPriceList(LoadPricelist(settings.PricelistPath));
+
+            missedPriceStorage = new MissedPriceStorage();
         }
 
         ISheet LoadPricelist(string path)
@@ -57,6 +60,8 @@ namespace PageGenerator
 
                 HandleTable(sheet, Path.Combine(settings.OutputDir, string.Format("{0}.html", i++)));
             }
+
+            ReportAboutPricelessItems();
         }
 
         public void HandleTable(ISheet sheet, string tablePageOutputPath)
@@ -65,12 +70,26 @@ namespace PageGenerator
             var fPageSettings = new FinishPageSettings {
                 Template = finishTemplate,
                 PriceList = pricelist,
-                NameResolver = pathResolver
+                NameResolver = pathResolver,
+                MissedPriceStorage = missedPriceStorage
             };
             fg.Generate(fPageSettings);
 
             XlsxTableGenerator tg = new XlsxTableGenerator(sheet);
             tg.Generate(tableTemplate, pathResolver, tablePageOutputPath);
+        }
+
+        void ReportAboutPricelessItems()
+        {
+            if (!missedPriceStorage.ItemsWithoutPrice.Any())
+                return;
+
+            using (var sw = new StreamWriter(settings.PricelessLogPath))
+            {
+                sw.WriteLine("These items are without price:");
+                foreach (var pricelessItem in missedPriceStorage.ItemsWithoutPrice)
+                    sw.WriteLine(pricelessItem);
+            }
         }
     }
 }

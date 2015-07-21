@@ -68,6 +68,7 @@
     <Compile Include="Generator\XlsxGeneratorEngine.cs" />
     <Compile Include="Generator\TablePage\ITableGenerator.cs" />
     <Compile Include="Helpers\HeaderReader.cs" />
+    <Compile Include="Helpers\MissedPriceStorage.cs" />
     <Compile Include="Helpers\PriceListReader.cs" />
     <Compile Include="Model\TablePage.cs" />
     <Compile Include="Program.cs" />

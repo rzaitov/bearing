@@ -15,6 +15,7 @@ namespace PageGenerator
                 DictionaryPath = "c:\\Users\\Rustam\\Downloads\\Dictionary.xlsx",
                 PricelistPath = "c:\\Users\\Rustam\\Downloads\\Pricelist.xlsx",
                 OutputDir = "Output",
+                PricelessLogPath = "ItemsWithoutPrice.txt",
                 StoragePath = "c:\\Users\\Rustam\\Downloads\\",
                 FinishPageTemplatePath = finishTemplate,
                 TableTemplatePath = tableTemplate

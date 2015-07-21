@@ -13,5 +13,7 @@ namespace PageGenerator
         public FinishPageNameResolver NameResolver { get; set; }
 
         public Dictionary<string, double> PriceList { get; set; }
+
+        public MissedPriceStorage MissedPriceStorage { get; set; }
     }
 }
