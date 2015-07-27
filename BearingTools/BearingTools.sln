@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaGenerator", "BearingT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageGenerator", "PageGenerator\PageGenerator.csproj", "{B9F65406-863B-4134-92BA-D55DC82D9619}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{C63CDB36-D97D-4A05-AC8D-EBB8CD234F93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{BD0E9CCB-AC40-4818-A3F4-9B49E6BEA55E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,5 +23,13 @@ Global
 		{B9F65406-863B-4134-92BA-D55DC82D9619}.Debug|x86.Build.0 = Debug|x86
 		{B9F65406-863B-4134-92BA-D55DC82D9619}.Release|x86.ActiveCfg = Release|x86
 		{B9F65406-863B-4134-92BA-D55DC82D9619}.Release|x86.Build.0 = Release|x86
+		{BD0E9CCB-AC40-4818-A3F4-9B49E6BEA55E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BD0E9CCB-AC40-4818-A3F4-9B49E6BEA55E}.Debug|x86.Build.0 = Debug|Any CPU
+		{BD0E9CCB-AC40-4818-A3F4-9B49E6BEA55E}.Release|x86.ActiveCfg = Release|Any CPU
+		{BD0E9CCB-AC40-4818-A3F4-9B49E6BEA55E}.Release|x86.Build.0 = Release|Any CPU
+		{C63CDB36-D97D-4A05-AC8D-EBB8CD234F93}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C63CDB36-D97D-4A05-AC8D-EBB8CD234F93}.Debug|x86.Build.0 = Debug|Any CPU
+		{C63CDB36-D97D-4A05-AC8D-EBB8CD234F93}.Release|x86.ActiveCfg = Release|Any CPU
+		{C63CDB36-D97D-4A05-AC8D-EBB8CD234F93}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
