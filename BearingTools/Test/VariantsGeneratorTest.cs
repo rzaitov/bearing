@@ -1,52 +1,67 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 using Core;
-using System.Linq;
 
 namespace Test
 {
-	[TestFixture()]
+	[TestFixture]
 	public class VariantsGeneratorTest
 	{
-		[Test()]
+		[Test]
 		public void SkfVariants ()
 		{
 			var builder = new GeneratorBuilder ("skf");
 			var generator = builder.Build ();
 
-			CollectionAssert.AreEqual (new string []{"SKF", "СКФ"}, generator.GetVariants ());
+			var expected = new string[] {
+				"SKF",
+				"СКФ"
+			};
+			CollectionAssert.AreEqual (expected, generator.GetVariants ());
 		}
 
-		[Test()]
+		[Test]
 		public void UniqVariant ()
 		{
 			var builder = new GeneratorBuilder ("xyz");
 			var generator = builder.Build ();
 
-			CollectionAssert.AreEqual (new string []{"xyz"}, generator.GetVariants ());
+			var expected = new string[] {
+				"xyz"
+			};
+			CollectionAssert.AreEqual (expected, generator.GetVariants ());
 		}
 
-		[Test()]
+		[Test]
 		public void VariantWitSingleSeparator ()
 		{
 			var builder = new GeneratorBuilder ("abc-xyz");
 			var generator = builder.Build ();
 
-			CollectionAssert.AreEquivalent (new string []{"abc-xyz", "abc xyz", "abcxyz"}, generator.GetVariants ());
+			var expected = new string[] {
+				"abc-xyz",
+				"abc xyz",
+				"abcxyz"
+			};
+			CollectionAssert.AreEquivalent (expected, generator.GetVariants ());
 		}
 
-		[Test()]
+		[Test]
 		public void VariantWitMultiSeparator ()
 		{
 			var builder = new GeneratorBuilder ("a + b");
 			var generator = builder.Build ();
 
 			var variants = generator.GetVariants ();
-			foreach (var item in variants) {
-				Console.WriteLine (item);
-			}
-			CollectionAssert.AreEquivalent (new string []{"a + b", "a+ b", "a +b", "a+b", "a b", "ab"}, variants);
+			var expected = new string[] {
+				"a + b",
+				"a+ b",
+				"a +b",
+				"a+b",
+				"a b",
+				"ab"
+			};
+			CollectionAssert.AreEquivalent (expected, variants);
 		}
 	}
 }
