@@ -80,8 +80,8 @@ namespace PageGenerator
             XlsxTableGenerator tg = new XlsxTableGenerator(sheet);
             tg.Generate(tableTemplate, pathResolver, tablePageOutputPath);
             
-            var marketGenerator = new MarketGenerator(marketOutputPath);
-            marketGenerator.Generate(sheet, pricelist);
+            var marketGenerator = new MarketGenerator(marketOutputPath, pricelist, pathResolver);
+            marketGenerator.Generate(sheet);
         }
 
         void ReportAboutPricelessItems()

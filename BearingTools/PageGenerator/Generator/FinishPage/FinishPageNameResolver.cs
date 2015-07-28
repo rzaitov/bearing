@@ -22,17 +22,18 @@ namespace PageGenerator
                 throw new ArgumentException();
             
             article = article.Trim().ToLower();
-            char[] arr = article.ToArray();
+            List<char> lst = new List<char>(article.Length);
 
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < article.Length; i++)
             {
-                char c = arr[i];
-                if (!char.IsLetterOrDigit(c))
-                    arr[i] = '-';
+                char c = article[i];
+                if (char.IsLetterOrDigit(c))
+                    lst.Add(c);
+                else if (lst.Count > 0 && char.IsLetterOrDigit(lst[lst.Count - 1]))
+                    lst.Add('-');
             }
 
-
-            string fileName = string.Format("podshipnik-{0}.html", new string(arr));
+            string fileName = string.Format("podshipnik-{0}.html", new string(lst.ToArray()));
             return fileName;
         }
 

@@ -14,24 +14,29 @@ namespace PageGenerator
     class MarketGenerator
     {
         readonly string outputPath;
+        readonly Dictionary<string, double> priceList;
+        readonly FinishPageNameResolver resolver;
+
         int offerIndex;
+        int rowIndex;
         readonly IWorkbook workbook;
         readonly ISheet outputSheet;
-        int rowIndex;
 
-        public MarketGenerator(string outputPath)
+        public MarketGenerator(string outputPath, Dictionary<string, double> priceList, FinishPageNameResolver resolver)
         {
             this.outputPath = outputPath;
+            this.priceList = priceList;
+            this.resolver = resolver;
             offerIndex = 1;
 
             workbook = new XSSFWorkbook();
             outputSheet = workbook.CreateSheet();
         }
 
-        public void Generate(ISheet sheet, Dictionary<string, double> priceList)
+        public void Generate(ISheet sheet)
         {
             foreach (var article in ReadArticles(sheet))
-                AppendOffer(offerIndex++, article, priceList);
+                AppendOffer(offerIndex++, article);
 
             using (var fs = new FileStream(outputPath, FileMode.Create))
                 workbook.Write(fs);
@@ -53,7 +58,7 @@ namespace PageGenerator
             }
         }
 
-        void AppendOffer(int index, string article, Dictionary<string, double> priceList)
+        void AppendOffer(int index, string article)
         {
             var builder = new GeneratorBuilder(article);
             VariantsGenerator generator = builder.Build();
@@ -61,6 +66,7 @@ namespace PageGenerator
             double price;
             string header = priceList.TryGetValue(article, out price) ? string.Format("{0} {1} руб.", article, price) : article;
             string text = string.Format("Подшипники {0}. Наличие в Спб. Низкие цены. Звоните!", header);
+            var fileName = resolver.GetFileName(article);
 
             foreach (var item in generator.GetVariants())
             {
@@ -76,6 +82,9 @@ namespace PageGenerator
 
                 cell = row.CreateCell(3);
                 cell.SetCellValue(text);
+
+                cell = row.CreateCell(4);
+                cell.SetCellValue(fileName);
             }       
         }
     }
