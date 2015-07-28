@@ -11,7 +11,6 @@ namespace PageGenerator
 		
         public static void Main (string[] args)
 		{
-			var options = new Options ();
 			Parser.Default.ParseArguments<Options> (args).WithParsed (opts => {
 				GeneratorSettings settings = new GeneratorSettings {
 					DictionaryPath = opts.Dictionary,
@@ -21,11 +20,13 @@ namespace PageGenerator
 					TableTemplatePath = opts.TablePageTemplate,
 					GeneratePages = opts.Pages,
 					GenerateYandexMarket = opts.YandexMarket,
+                    PricelistPath = opts.PriceListPath,
 					PricelessLogPath = "ItemsWithoutPrice.txt",
+                    MarketOutput = "Market.txt"
 				};
 				var engine = new XlsxGeneratorEngine (settings);
 				engine.Generate ();
-			}).WithNotParsed (() => Console.WriteLine ("command line arguments are not pare"));
+			}).WithNotParsed (_ => Console.WriteLine ("command line arguments are not pare"));
 		}
 	}
 }

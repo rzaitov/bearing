@@ -68,6 +68,7 @@
     <Compile Include="Generator\FinishPage\XlsxFinishPageGenerator.cs" />
     <Compile Include="Generator\XlsxGeneratorEngine.cs" />
     <Compile Include="Generator\TablePage\ITableGenerator.cs" />
+    <Compile Include="Generator\YandexMarket\MarketGenerator.cs" />
     <Compile Include="Helpers\HeaderReader.cs" />
     <Compile Include="Helpers\MissedPriceStorage.cs" />
     <Compile Include="Helpers\PriceListReader.cs" />
@@ -79,7 +80,12 @@
     <Compile Include="Options.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{c63cdb36-d97d-4a05-ac8d-ebb8cd234f93}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

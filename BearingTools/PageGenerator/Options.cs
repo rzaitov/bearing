@@ -9,13 +9,16 @@ namespace PageGenerator
 		[Option(Required = true)]
 		public string Dictionary { get; set; }
 
+        [Option("price", Required = true)]
+        public string PriceListPath { get; set; }
+
 		[Option(Required = true)]
 		public string Storage { get; set; }
 
-		[Option("finishpage", Required = true)]
+		[Option("finishtemplate", Required = true)]
 		public string FinishPageTemplate { get; set; }
 
-		[Option("tablepage", Required = true)]
+		[Option("tabletemplate", Required = true)]
 		public string TablePageTemplate { get; set; }
 
 		[Option(Default = "Output")]

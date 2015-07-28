@@ -19,6 +19,8 @@ namespace PageGenerator
         readonly Dictionary<string, double> pricelist;
         readonly MissedPriceStorage missedPriceStorage;
 
+        MarketGenerator marketGenerator;
+
         public XlsxGeneratorEngine(GeneratorSettings settings)
         {
             this.settings = settings;
@@ -45,6 +47,10 @@ namespace PageGenerator
         public void Generate()
         {
             Directory.CreateDirectory(settings.OutputDir);
+
+            var marketOutputPath = Path.Combine(settings.OutputDir, settings.MarketOutput);
+            File.Delete(marketOutputPath);
+            marketGenerator = new MarketGenerator(marketOutputPath);
 
             var reader = new DictionaryReader(settings.DictionaryPath, settings.StoragePath);
             foreach (var item in reader.Read())
@@ -77,6 +83,8 @@ namespace PageGenerator
 
             XlsxTableGenerator tg = new XlsxTableGenerator(sheet);
             tg.Generate(tableTemplate, pathResolver, tablePageOutputPath);
+
+            marketGenerator.Appdend(sheet, pricelist);
         }
 
         void ReportAboutPricelessItems()

@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 using Core;
 
-namespace Test
+namespace Tests
 {
 	[TestFixture ()]
 	public class GeneratorBuilderTest
