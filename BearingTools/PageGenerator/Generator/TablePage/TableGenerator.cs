@@ -61,7 +61,7 @@ namespace PageGenerator
             }
 
             string result = Engine.Razor.Run("tablePageKey", typeof(TablePage), model);
-            File.WriteAllText(outputPath, result, System.Text.Encoding.Unicode);
+            File.WriteAllText(outputPath, result, System.Text.Encoding.UTF8);
 		}
     }
 }

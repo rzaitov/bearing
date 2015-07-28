@@ -1,1 +1,1 @@
-PageGenerator.exe --dictionary "c:\Users\Rustam\Downloads\Dictionary.xlsx" --storage "c:\Users\Rustam\Downloads" --finishtemplate "..\..\..\..\templates\table_template3.html" --tabletemplate "..\..\..\..\templates\table_template2.html"
+PageGenerator.exe --dictionary "c:\Users\Rustam\Downloads\Dictionary.xlsx" --price "c:\Users\Rustam\Downloads\Pricelist.xlsx" --storage "c:\Users\Rustam\Downloads" --finishtemplate "..\..\..\..\templates\table_template3.html" --tabletemplate "..\..\..\..\templates\table_template2.html"

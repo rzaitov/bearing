@@ -65,7 +65,7 @@ namespace PageGenerator
 
                 string result = Engine.Razor.Run("finishPageKey", typeof(FinishPage), model);
                 string fileName = settings.NameResolver.GetFilePath(model.Values[0]);
-                File.WriteAllText(fileName, result, System.Text.Encoding.Unicode);
+                File.WriteAllText(fileName, result, System.Text.Encoding.UTF8);
             }
         }
     }
