@@ -19,8 +19,6 @@ namespace PageGenerator
         readonly Dictionary<string, double> pricelist;
         readonly MissedPriceStorage missedPriceStorage;
 
-        MarketGenerator marketGenerator;
-
         public XlsxGeneratorEngine(GeneratorSettings settings)
         {
             this.settings = settings;
@@ -48,10 +46,6 @@ namespace PageGenerator
         {
             Directory.CreateDirectory(settings.OutputDir);
 
-            var marketOutputPath = Path.Combine(settings.OutputDir, settings.MarketOutput);
-            File.Delete(marketOutputPath);
-            marketGenerator = new MarketGenerator(marketOutputPath);
-
             var reader = new DictionaryReader(settings.DictionaryPath, settings.StoragePath);
             foreach (var item in reader.Read())
             {
@@ -64,13 +58,15 @@ namespace PageGenerator
                 IWorkbook wb = WorkbookFactory.Create(path);
                 ISheet sheet = wb.GetSheetAt(0);
 
-                HandleTable(sheet, Path.Combine(settings.OutputDir, string.Format("{0}.html", i++)));
+                var marketOutput = Path.Combine(settings.OutputDir, string.Format("{0}.xlsx", i));
+                var tableOutput = Path.Combine(settings.OutputDir, string.Format("{0}.html", i++));
+                HandleTable(sheet, tableOutput, marketOutput);
             }
 
             ReportAboutPricelessItems();
         }
 
-        public void HandleTable(ISheet sheet, string tablePageOutputPath)
+        public void HandleTable(ISheet sheet, string tablePageOutputPath, string marketOutputPath)
         {
             XlsxFinishPageGenerator fg = new XlsxFinishPageGenerator(sheet);
             var fPageSettings = new FinishPageSettings {
@@ -83,8 +79,9 @@ namespace PageGenerator
 
             XlsxTableGenerator tg = new XlsxTableGenerator(sheet);
             tg.Generate(tableTemplate, pathResolver, tablePageOutputPath);
-
-            marketGenerator.Appdend(sheet, pricelist);
+            
+            var marketGenerator = new MarketGenerator(marketOutputPath);
+            marketGenerator.Generate(sheet, pricelist);
         }
 
         void ReportAboutPricelessItems()

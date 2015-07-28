@@ -1,5 +1,6 @@
 ﻿using Core;
 using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,21 +15,26 @@ namespace PageGenerator
     {
         readonly string outputPath;
         int offerIndex;
+        readonly IWorkbook workbook;
+        readonly ISheet outputSheet;
+        int rowIndex;
 
         public MarketGenerator(string outputPath)
         {
             this.outputPath = outputPath;
             offerIndex = 1;
+
+            workbook = new XSSFWorkbook();
+            outputSheet = workbook.CreateSheet();
         }
 
-        public void Appdend(ISheet sheet, Dictionary<string, double> priceList)
+        public void Generate(ISheet sheet, Dictionary<string, double> priceList)
         {
-            using (var sw = new StreamWriter(outputPath, true))
-            {
-                sw.WriteLine("These items are without price:");
-                foreach (var article in ReadArticles(sheet))
-                    AppendOffer(sw, offerIndex++, article, priceList);
-            }
+            foreach (var article in ReadArticles(sheet))
+                AppendOffer(offerIndex++, article, priceList);
+
+            using (var fs = new FileStream(outputPath, FileMode.Create))
+                workbook.Write(fs);
         }
 
         IEnumerable<string> ReadArticles(ISheet sheet)
@@ -47,7 +53,7 @@ namespace PageGenerator
             }
         }
 
-        void AppendOffer(StreamWriter sw, int index, string article, Dictionary<string, double> priceList)
+        void AppendOffer(int index, string article, Dictionary<string, double> priceList)
         {
             var builder = new GeneratorBuilder(article);
             VariantsGenerator generator = builder.Build();
@@ -58,14 +64,18 @@ namespace PageGenerator
 
             foreach (var item in generator.GetVariants())
             {
-                sw.Write(index);
-                sw.Write("\t");
-                sw.Write(item);
-                sw.Write("\t");
-                sw.Write(header);
-                sw.Write("\t");
-                sw.Write(text);
-                sw.WriteLine();
+                IRow row = outputSheet.CreateRow(rowIndex++);
+                var cell = row.CreateCell(0);
+                cell.SetCellValue(index.ToString());
+
+                cell = row.CreateCell(1);
+                cell.SetCellValue(item);
+
+                cell = row.CreateCell(2);
+                cell.SetCellValue(header);
+
+                cell = row.CreateCell(3);
+                cell.SetCellValue(text);
             }       
         }
     }

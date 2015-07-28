@@ -23,7 +23,5 @@ namespace PageGenerator
 
 		public bool GeneratePages { get; set; }
 		public bool GenerateYandexMarket { get; set; }
-
-        public string MarketOutput { get; set; }
     }
 }
