@@ -15,5 +15,8 @@ namespace PageGenerator
         public string FinishPageTemplatePath { get; set; }
 
         public string OutputDir { get; set; }
+
+		public bool GeneratePages { get; set; }
+		public bool GenerateYandexMarket { get; set; }
     }
 }
