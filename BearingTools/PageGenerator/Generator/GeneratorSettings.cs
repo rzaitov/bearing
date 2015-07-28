@@ -20,5 +20,8 @@ namespace PageGenerator
         public string OutputDir { get; set; }
 
         public string PricelessLogPath { get; set; }
+
+		public bool GeneratePages { get; set; }
+		public bool GenerateYandexMarket { get; set; }
     }
 }

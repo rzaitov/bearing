@@ -1,4 +1,5 @@
 ﻿using System;
+using CommandLine;
 
 namespace PageGenerator
 {
@@ -10,18 +11,21 @@ namespace PageGenerator
 		
         public static void Main (string[] args)
 		{
-            GeneratorSettings settings = new GeneratorSettings
-            {
-                DictionaryPath = "c:\\Users\\Rustam\\Downloads\\Dictionary.xlsx",
-                PricelistPath = "c:\\Users\\Rustam\\Downloads\\Pricelist.xlsx",
-                OutputDir = "Output",
-                PricelessLogPath = "ItemsWithoutPrice.txt",
-                StoragePath = "c:\\Users\\Rustam\\Downloads\\",
-                FinishPageTemplatePath = finishTemplate,
-                TableTemplatePath = tableTemplate
-            };
-            var engine = new XlsxGeneratorEngine(settings);
-            engine.Generate();
+			var options = new Options ();
+			Parser.Default.ParseArguments<Options> (args).WithParsed (opts => {
+				GeneratorSettings settings = new GeneratorSettings {
+					DictionaryPath = opts.Dictionary,
+					OutputDir = opts.OutputDir,
+					StoragePath = opts.Storage,
+					FinishPageTemplatePath = opts.FinishPageTemplate,
+					TableTemplatePath = opts.TablePageTemplate,
+					GeneratePages = opts.Pages,
+					GenerateYandexMarket = opts.YandexMarket,
+					PricelessLogPath = "ItemsWithoutPrice.txt",
+				};
+				var engine = new XlsxGeneratorEngine (settings);
+				engine.Generate ();
+			}).WithNotParsed (() => Console.WriteLine ("command line arguments are not pare"));
 		}
 	}
 }
