@@ -31,6 +31,7 @@ namespace PageGenerator
             if(!Engine.Razor.IsTemplateCached("finishPageKey", typeof(FinishPage)))
                 Engine.Razor.Compile(settings.Template, "finishPageKey", typeof(FinishPage));
 
+            var stringExtruder = new CellValueExtruder();
             int rowIndex = 0;
             while (true)
             {
@@ -46,7 +47,7 @@ namespace PageGenerator
                 for (int i = 0; i < headers.Count; i++)
                 {
                     var cell = row.GetCell(i);
-                    string cellValue = cell.ToString();
+                    string cellValue = stringExtruder.GetValue(cell);
                     isRowEmpty &= string.IsNullOrWhiteSpace(cellValue);
                     hasEmptyCell |= string.IsNullOrWhiteSpace(cellValue);
                     model.Values.Add(cellValue);

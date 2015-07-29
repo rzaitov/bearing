@@ -69,6 +69,7 @@
     <Compile Include="Generator\XlsxGeneratorEngine.cs" />
     <Compile Include="Generator\TablePage\ITableGenerator.cs" />
     <Compile Include="Generator\YandexMarket\MarketGenerator.cs" />
+    <Compile Include="Helpers\CellValueExtruder.cs" />
     <Compile Include="Helpers\HeaderReader.cs" />
     <Compile Include="Helpers\MissedPriceStorage.cs" />
     <Compile Include="Helpers\PriceListReader.cs" />
