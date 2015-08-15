@@ -27,9 +27,10 @@ namespace PageGenerator
             tableTemplate = File.ReadAllText(settings.TableTemplatePath);
             pathResolver = new FinishPageNameResolver(settings.OutputDir);
 
-
             var priceListReader = new PriceListReader();
-            pricelist = priceListReader.ReadPriceList(LoadPricelist(settings.PricelistPath));
+            pricelist = string.IsNullOrWhiteSpace(settings.PricelistPath)
+                ? new Dictionary<string, double>()
+                : priceListReader.ReadPriceList(LoadPricelist(settings.PricelistPath));
 
             missedPriceStorage = new MissedPriceStorage();
         }
