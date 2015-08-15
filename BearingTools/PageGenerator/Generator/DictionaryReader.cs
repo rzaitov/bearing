@@ -90,9 +90,6 @@ namespace PageGenerator
 				return null;
 
 			string path = cell.StringCellValue;
-			if (!path.StartsWith ("skf"))
-				return path;
-
 			path = path.Replace ("\\", Path.DirectorySeparatorChar.ToString ());
 			path = Path.Combine (storagePath, path);
 
